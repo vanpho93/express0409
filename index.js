@@ -15,7 +15,9 @@ app.get('/sayhello/:ten/:tuoi', (req, res) => {
 });
 
 app.get('/tinh/:soA/:soB/:tenPhepTinh', (req, res) => {
-    //4 + 5 = 9
+    const { soA, soB, tenPhepTinh } = req.params;
+    const t = new Tinh(soA, soB, tenPhepTinh);
+    res.send(t.getResultString());
 });
 
 app.listen(3000);
@@ -33,17 +35,19 @@ class Tinh {
     }
 
     getResultString() {
-        const { tenPhepTinh, soA, soB } = this;
-        let dau = '+';
-        if(tenPhepTinh === 'TRU') dau = '-';
-        if(tenPhepTinh === 'NHAN') dau = '*';
-        if(tenPhepTinh === 'CHIA') dau = '/';
+        const { soA, soB } = this;
+        const dau = this.getSign();
         const chuoiPhepTinh = `${soA} ${dau} ${soB}`;
         return `${chuoiPhepTinh} = ${eval(chuoiPhepTinh)}`;
     }
-}
 
-const pt1 = new Tinh(4, 5, 'NHAN');
-console.log(pt1.getResultString()); //4 + 5 = 9
+    getSign() {
+        const { tenPhepTinh } = this;
+        if(tenPhepTinh === 'TRU') return '-';
+        if(tenPhepTinh === 'NHAN') return '*';
+        if(tenPhepTinh === 'CHIA') return '/';
+        return '+';
+    }
+}
 
 // eval('4 + 5') // 9
