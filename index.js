@@ -1,9 +1,12 @@
 const express = require('express');
-
+// template engine
 const app = express();
 
+app.set('view engine', 'ejs');
+app.set('views', './views');
+
 app.get('/', (req, res) => {
-    res.send('<h3>Hello</h3>');
+    res.render('a');
 });
 
 app.get('/about', (req, res) => res.send('Khoa Pham Training'));
