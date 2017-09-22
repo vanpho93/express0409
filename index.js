@@ -1,5 +1,4 @@
 const express = require('express');
-const Tinh = require('./Tinh');
 
 const app = express();
 
@@ -14,10 +13,6 @@ app.get('/sayhello/:ten/:tuoi', (req, res) => {
     res.send(`Xin chao toi la ${ten}, ${tuoi} tuoi`);
 });
 
-app.get('/tinh/:soA/:soB/:tenPhepTinh', (req, res) => {
-    const { soA, soB, tenPhepTinh } = req.params;
-    const t = new Tinh(soA, soB, tenPhepTinh);
-    res.send(t.getResultString());
-});
+app.get('/tinh/:soA/:soB/:tenPhepTinh', require('./controllers/tinhController'));
 
 app.listen(3000);
