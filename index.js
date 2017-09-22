@@ -1,8 +1,8 @@
 const express = require('express');
+const Tinh = require('./Tinh');
 
 const app = express();
 
-//route - link
 app.get('/', (req, res) => {
     res.send('<h3>Hello</h3>');
 });
@@ -21,33 +21,3 @@ app.get('/tinh/:soA/:soB/:tenPhepTinh', (req, res) => {
 });
 
 app.listen(3000);
-
-
-//npm init -y
-//npm install express
-//node index
-
-class Tinh {
-    constructor(soA, soB, tenPhepTinh) {
-        this.soA = soA;
-        this.soB = soB;
-        this.tenPhepTinh = tenPhepTinh;//CONG TRU NHAN CHIA
-    }
-
-    getResultString() {
-        const { soA, soB } = this;
-        const dau = this.getSign();
-        const chuoiPhepTinh = `${soA} ${dau} ${soB}`;
-        return `${chuoiPhepTinh} = ${eval(chuoiPhepTinh)}`;
-    }
-
-    getSign() {
-        const { tenPhepTinh } = this;
-        if(tenPhepTinh === 'TRU') return '-';
-        if(tenPhepTinh === 'NHAN') return '*';
-        if(tenPhepTinh === 'CHIA') return '/';
-        return '+';
-    }
-}
-
-// eval('4 + 5') // 9
